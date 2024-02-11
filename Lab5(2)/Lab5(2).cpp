@@ -1,20 +1,37 @@
-// Lab5(2).cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <vector>
+#include <string>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+
+char translate(char ch, const vector<char>& codeTable) {
+    char upperCaseLetter;
+    int upperCaseCode;
+
+    if (ch >= 'A' && ch <= 'Z') { // is a capital letter
+        return codeTable[ch - 'A'];
+    }
+    else if (ch >= 'a' && ch <= 'z') { // is lowercase letter
+        upperCaseLetter = ch - 32; // converts the letter to uppercase
+        upperCaseCode = codeTable[upperCaseLetter - 'A']; // get uppercase code
+        return (upperCaseCode + 32); // convert code back to lowercase
+    }
+    else { // is not a letter
+        return ch;
+    }
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main() {
+    vector<char> codeTable = { 'V','F','X','B','L','I','T','Z','J','R','P','H','D','K','N','O','W','S','G','U','Y','Q','M','A','C','E' };
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    string input;
+    cout << "Input text here: ";
+    getline(cin, input);
+    int length = input.length();
+    
+    cout << "Encoded Message: ";
+    for (int i = 0; i < length; i++) {
+        cout << translate(input[i], codeTable);
+    }
+    return 0;
+}
